@@ -2,7 +2,9 @@ Association extend [
 
     jsonWriteOn: aStream [
 	<category: '*JSON-writing'>
-	self key asString jsonWriteOn: aStream.
+	((self key isCollection and: [self key isString not]) 
+	    ifTrue: [self key printString]
+	    ifFalse: [self key asString]) jsonWriteOn: aStream.
 	aStream
 	    nextPut: $:;
 	    space.
