@@ -98,13 +98,13 @@ Object subclass: Json [
 	<category: 'private'>
 	| c |
 	c := stream next.
-	c == $b ifTrue: [^Character backspace].
-	c == $n ifTrue: [^Character lf].
-	c == $f ifTrue: [^Character newPage].
-	c == $r ifTrue: [^Character cr].
-	c == $t ifTrue: [^Character tab].
-	c == $u ifTrue: [^self unescapeUnicode].
-	^c
+	c == $b ifTrue: [^Character backspace asString].
+	c == $n ifTrue: [^Character lf asString].
+	c == $f ifTrue: [^Character newPage asString].
+	c == $r ifTrue: [^Character cr asString].
+	c == $t ifTrue: [^Character tab asString].
+	c == $u ifTrue: [^self unescapeUnicode asUnicodeString asString].
+	^c asUnicodeString asString
     ]
 
     readArray [
@@ -188,7 +188,7 @@ Object subclass: Json [
 	
 	[c := stream next.
 	c == $\ 
-	    ifTrue: [s nextPut: self interpretStringEscape]
+	    ifTrue: [s nextPutAll: self interpretStringEscape]
 	    ifFalse: 
 		[c == $" ifTrue: [^s contents].
 		s nextPut: c]] 
