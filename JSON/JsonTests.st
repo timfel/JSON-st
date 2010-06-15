@@ -16,6 +16,7 @@ TestCase subclass: JsonTests [
 
     render: anObject equals: aString [
 	self assert: (Json render: anObject) = aString
+	    description: 'Json render ' , anObject printString , ' = ' , aString
     ]
 
     simpleDummyObject [
