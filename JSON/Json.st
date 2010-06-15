@@ -19,14 +19,13 @@ Object subclass: Json [
     Json class >> initialize [
 	"Json initialize."
 
+	| tmpStr |
 	escapeArray := (1 to: 128) collect: [:i | Character value: i - 1].
 	(0 to: 31) , #(127) do: 
 		[:each | 
+		tmpStr := String streamContents: [:str | each printOn: str base: 16].
 		escapeArray at: each + 1
-		    put: '\u' , (each printStringHex 
-				    padded: #left
-				    to: 4
-				    with: $0)].
+		    put: '\u' , (String new: (4 - tmpStr size max: 0) withAll: $0) , tmpStr].
 	
 	{$" -> '\"'.
 	$\ -> '\\'.
