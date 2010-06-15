@@ -55,14 +55,14 @@ TestCase subclass: JsonTests [
 	self json: '"\\"' equals: '\'.
 	self json: '""' equals: ''.
 	self json: '"a\u0004b"'
-	    equals: (
-		{$a.
-		Character value: 4.
-		$b} as: String).
-	self json: '"a\nb"' equals: (
-		{$a.
-		Character lf.
-		$b} as: String)
+	    equals: (String from: 
+			{$a.
+			Character value: 4.
+			$b}).
+	self json: '"a\nb"' equals: (String from: 
+			{$a.
+			Character lf.
+			$b})
     ]
 
     testAtomTrue [
@@ -106,8 +106,10 @@ TestCase subclass: JsonTests [
     ]
 
     testStringWithUnicode [
-	self json: '"\u263A"' equals: (Unicode value: 9786) asString.
-	self render: (Unicode value: 9786) asString equals: '"\u263A"'
+	self json: '"\u263A"'
+	    equals: (Character codePoint: 9786) asUnicodeString asString.
+	self render: (Character codePoint: 9786) asUnicodeString asString
+	    equals: '"\u263A"'
     ]
 
     testWriteAssociation [
@@ -123,14 +125,15 @@ TestCase subclass: JsonTests [
 	self render: '"' equals: '"\""'.
 	self render: '\' equals: '"\\"'.
 	self render: 'hi' equals: '"hi"'.
-	self render: (
-		{$a.
-		Character lf.
-		$b} as: String) equals: '"a\nb"'.
-	self render: (
-		{$a.
-		Character value: 4.
-		$b} as: String)
+	self render: (String from: 
+			{$a.
+			Character lf.
+			$b})
+	    equals: '"a\nb"'.
+	self render: (String from: 
+			{$a.
+			Character value: 4.
+			$b})
 	    equals: '"a\u0004b"'
     ]
 ]

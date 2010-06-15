@@ -244,7 +244,7 @@ Object subclass: Json [
 		    with: stream next
 		    with: stream next
 		    with: stream next) asUppercase.
-	^Unicode value: (Integer readFrom: string readStream base: 16)
+	^Character codePoint: (Integer readFrom: string readStream radix: 16)
     ]
 
     ctorMap [

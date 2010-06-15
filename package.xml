@@ -1,11 +1,9 @@
 <package>
 <!-- THIS FILE IS GENERATED! EDITS _WILL_ BE LOST ON UPDATE! -->
 <name>JSON</name>
-<namespace>JSON</namespace>
 <test>
 <filein>JSON/JsonTests.st</filein>
-<sunit>JSON.JsonTests
-</sunit>
+<sunit>JsonTests</sunit>
 </test>
 <filein>Extensions/Association.st</filein>
 <filein>Extensions/Collection.st</filein>
@@ -19,7 +17,6 @@
 <filein>Extensions/Number.st</filein>
 <filein>Extensions/Object.st</filein>
 <filein>Extensions/String.st</filein>
-<filein>Extensions/Text.st</filein>
 <filein>Extensions/True.st</filein>
 <filein>Extensions/UndefinedObject.st</filein>
 <filein>Extensions/WriteStream.st</filein>
@@ -36,7 +33,6 @@
 <file>Extensions/Number.st</file>
 <file>Extensions/Object.st</file>
 <file>Extensions/String.st</file>
-<file>Extensions/Text.st</file>
 <file>Extensions/True.st</file>
 <file>Extensions/UndefinedObject.st</file>
 <file>Extensions/WriteStream.st</file>
