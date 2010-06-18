@@ -20,36 +20,37 @@ Object subclass: JsonObject [
 	^self at: aKey ifAbsent: [nil]
     ]
 
+    dictionary [
+	<category: 'accessing'>
+	dictionary ifNil: [dictionary := Dictionary new].
+	^dictionary
+    ]
+
     dictionary: aDictionary [
 	<category: 'accessing'>
 	aDictionary ifNotNil: [:foo | dictionary := aDictionary]
     ]
 
-    dictionaryEquals: aDictionary [
-	<category: 'accessing'>
-	^dictionary = aDictionary
-    ]
-
     = aJsonObject [
 	<category: 'overrides-to-dictionary'>
-	^aJsonObject dictionaryEquals: dictionary
+	^aJsonObject dictionary = self dictionary
     ]
 
     at: aKey put: aValue [
 	"override cause object defines this"
 
 	<category: 'overrides-to-dictionary'>
-	^dictionary at: aKey put: aValue
+	^self dictionary at: aKey put: aValue
     ]
 
     bindingOf: varName [
 	<category: 'overrides-to-dictionary'>
-	^dictionary bindingOf: varName
+	^self dictionary bindingOf: varName
     ]
 
     flattenOnStream: aStream [
 	<category: 'overrides-to-dictionary'>
-	^dictionary flattenOnStream: aStream
+	^self dictionary flattenOnStream: aStream
     ]
 
     isDictionary [
@@ -59,12 +60,12 @@ Object subclass: JsonObject [
 
     javascriptOn: aStream [
 	<category: 'overrides-to-dictionary'>
-	dictionary javascriptOn: aStream
+	self dictionary javascriptOn: aStream
     ]
 
     jsonOn: aStream [
 	<category: 'overrides-to-dictionary'>
-	dictionary jsonOn: aStream
+	self dictionary jsonOn: aStream
     ]
 
     name [
@@ -76,7 +77,7 @@ Object subclass: JsonObject [
 
     storeOn: aStream [
 	<category: 'overrides-to-dictionary'>
-	^dictionary storeOn: aStream
+	^self dictionary storeOn: aStream
     ]
 
     value [
@@ -89,15 +90,16 @@ Object subclass: JsonObject [
     doesNotUnderstand: aMessage [
 	| key result |
 	
-	[result := aMessage sendTo: dictionary.
-	^result] on: MessageNotUnderstood
+	[result := aMessage sendTo: self dictionary.
+	^result] 
+		on: MessageNotUnderstood
 		do: 
 		    [key := aMessage selector.
 		    key isUnary ifTrue: [^self at: key].
 		    ^(key isKeyword and: [(key occurrencesOf: $:) = 1]) 
 			ifTrue: 
 			    [key := key allButLast asSymbol.
-			    dictionary at: key put: aMessage arguments first]
+			    self dictionary at: key put: aMessage arguments first]
 			ifFalse: [super doesNotUnderstand: aMessage]]
     ]
 
