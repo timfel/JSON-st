@@ -1,0 +1,8 @@
+This is a Gnu Smalltalk port of Squeak JSON which is used for the SCouchDB 
+driver (www.squeaksource.com/SCouchDB).
+
+It uses Gitocello to track Squeak JSON in the squeakJson branch. I try to 
+keep the code in Squeak mostly compatible. Gnu Smalltalk specific changes 
+that cannot be easily incorporated into the Squeak package are in the master
+branch.
+
