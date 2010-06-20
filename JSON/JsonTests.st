@@ -28,6 +28,14 @@ TestCase subclass: JsonTests [
 	    yourself
     ]
 
+    testArray [
+	self json: '[]' equals: #().
+	self json: '[[]]' equals: #(#()).
+	self json: '[[], []]' equals: #(#() #()).
+	self json: '["hi", "there"]' equals: #('hi' 'there').
+	self json: '[["a", "b", null]]' equals: #(#('a' 'b' nil))
+    ]
+
     testAtomFalse [
 	self json: 'false' equals: false.
 	self json: '  false' equals: false.
@@ -45,10 +53,10 @@ TestCase subclass: JsonTests [
     testAtomNumber [
 	self json: '1' equals: 1.
 	self json: '0123' equals: 123.
+	self json: '1.23e2' equals: 123.
 	self json: '-1' equals: -1.
 	self json: '-0' equals: 0.
-	self json: '[-1.2]' equals: {1.2 negated}.
-	self json: '1.23e2' equals: 123
+	self json: '[-1.2]' equals: {1.2 negated}
     ]
 
     testAtomString [
